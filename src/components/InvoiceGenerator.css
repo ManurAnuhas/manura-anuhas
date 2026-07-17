@@ -1,0 +1,80 @@
+/* InvoiceGenerator Component Styles */
+
+.invoice-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: var(--clr-text);
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--clr-muted);
+  border-radius: 4px;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.invoice-table th,
+.invoice-table td {
+  border: 1px solid var(--clr-muted);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.invoice-table th {
+  background: var(--clr-bg-soft);
+}
+
+.invoice-summary {
+  text-align: right;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.invoice-preview {
+  padding: 1rem;
+  background: white;
+  color: black;
+  margin-top: 2rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.invoice-logo {
+  max-height: 60px;
+}
+
+.invoice-details h3 {
+  margin: 0;
+}
+
+.invoice-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}

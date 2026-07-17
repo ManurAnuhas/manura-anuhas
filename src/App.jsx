@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+
+import { ThemeProvider } from './themeContext';
+import ThemeToggle from './components/ThemeToggle';
+import HeroBackground from './components/HeroBackground';
 import {
   Menu, X, ArrowUpRight, Send, CheckCircle, ExternalLink,
   Code2, Cpu, Layers, Database, Palette, PenTool, Film,
@@ -267,11 +271,11 @@ export default function App() {
     setTimeout(() => { setSending(false); setSubmitted(true); }, 1600);
   };
 
+  const devProjects = PROJECTS.filter(p => p.category === 'dev');
+  const designProjects = PROJECTS.filter(p => p.category === 'design');
   const filtered = projectFilter === 'all' ? PROJECTS : PROJECTS.filter(p => p.category === projectFilter);
-  // Duplicate cards for seamless carousel loop
-  const carouselItems = [...PROJECTS, ...PROJECTS];
 
-  return (
+  return (<ThemeProvider>
     <>
       {/* ── LOADING SCREEN ── */}
       {loading && (
@@ -293,10 +297,14 @@ export default function App() {
       <div className="ambient amb-2" />
 
       {/* ── NAVBAR ── */}
-      <header className="header-dock">
+      <header className={`header-dock ${activeSection === 'home' ? 'nav-dark' : 'nav-light'}`}>
         <nav className="dock-nav">
           <a href="#home" className="dock-logo">
-            <img src="/logo-dark.png" alt="Logo" style={{ height: '20px', display: 'block' }} />
+            <img
+              src={activeSection === 'home' ? '/logo-light.png' : '/logo-dark.png'}
+              alt="Logo"
+              style={{ height: '20px', display: 'block' }}
+            />
           </a>
           <ul className="dock-links">
             {NAV_LINKS.map(l => (
@@ -326,73 +334,71 @@ export default function App() {
 
       <main>
         {/* ══════════════════════════════════════ HERO */}
-        <section id="home" className="hero">
-          <div className="container hero-grid">
-            <div className="hero-left">
-              <div className="hero-eyebrow">
-                <span className="dot" /> Available for Projects
-              </div>
-              <h1 className="hero-name">
-                Building<br /><span className="hl">Digital Magic</span>
-              </h1>
-              <p className="hero-roles">
-                Software Engineer &nbsp;|&nbsp; <span>Full-Stack Developer</span> &nbsp;|&nbsp; UI/UX Designer
-              </p>
-              <div className="hero-typed-wrapper">
-                <span className="typed">{typedText}</span>
-                <span className="cursor" />
-              </div>
-              <p className="hero-desc">
-                Building scalable software and meaningful digital experiences through code, creativity, and innovation. Software Engineering undergraduate at SLTC.
-              </p>
-              <div className="hero-actions">
-                <a href="#projects" className="btn btn-primary">View My Work <ArrowUpRight size={18} /></a>
-                <a href="#" className="btn btn-outline" onClick={e => e.preventDefault()}>Download CV</a>
-                <a href="#contact" className="btn btn-ghost">Contact Me</a>
-              </div>
-              <div className="hero-stats">
-                <div><div className="hero-stat-num">6+</div><div className="hero-stat-label">Projects Completed</div></div>
-                <div><div className="hero-stat-num">3+</div><div className="hero-stat-label">Years Leadership</div></div>
-                <div><div className="hero-stat-num">4</div><div className="hero-stat-label">Certifications</div></div>
+        <section id="home" className="hero hero-split">
+          {/* Animated background */}
+          <HeroBackground />
+          <div className="hero-orb-1" />
+          <div className="hero-orb-2" />
+          <div className="hero-orb-3" />
+          <div className="hero-beam-x" />
+          <div className="hero-beam-x2" />
+          <div className="hero-beam-y" />
+
+          {/* LEFT — text content */}
+          <div className="hero-split-left">
+            <div className="hero-eyebrow">
+              <span className="dot" /> Available for Projects
+            </div>
+            <h1 className="hero-name">
+              Building<br /><span className="hl">Digital Magic</span>
+            </h1>
+            <p className="hero-roles">
+              Software Engineer &nbsp;|&nbsp; <span>Full-Stack Developer</span> &nbsp;|&nbsp; UI/UX Designer
+            </p>
+            <div className="hero-typed-wrapper">
+              <span className="typed">{typedText}</span>
+              <span className="cursor" />
+            </div>
+            <p className="hero-desc">
+              Building scalable software and meaningful digital experiences through code, creativity, and innovation. Software Engineering undergraduate at SLTC.
+            </p>
+            <div className="hero-actions">
+              <a href="#projects" className="btn btn-primary">View My Work <ArrowUpRight size={18} /></a>
+              <a href="#" className="btn btn-outline" onClick={e => e.preventDefault()}>Download CV</a>
+              <a href="#contact" className="btn btn-ghost">Contact Me</a>
+            </div>
+            <div className="hero-stats">
+              <div><div className="hero-stat-num">6+</div><div className="hero-stat-label">Projects Completed</div></div>
+              <div><div className="hero-stat-num">3+</div><div className="hero-stat-label">Years Leadership</div></div>
+              <div><div className="hero-stat-num">4</div><div className="hero-stat-label">Certifications</div></div>
+            </div>
+          </div>
+
+          {/* RIGHT — full-bleed photo */}
+          <div className="hero-split-right">
+            <img src="/DSC03196.jpg" alt="Manura Anuhas" className="hero-split-photo" />
+            {/* Floating cards */}
+            <div className="hps-card hps-card-top">
+              <div className="hps-card-icon"><Code2 size={16} /></div>
+              <div>
+                <div className="hps-card-label">Currently At</div>
+                <div className="hps-card-value">SLTC Undergrad</div>
               </div>
             </div>
-
-            <div className="hero-visual">
-              <div className="hero-code-card">
-                <div className="code-dots">
-                  <div className="code-dot r" /><div className="code-dot y" /><div className="code-dot g" />
-                </div>
-                <div className="code-line"><span className="cm">// Manura Anuhas — 2026</span></div>
-                <div className="code-line"><span className="ck">const</span> <span className="cv">me</span> <span className="cw">= {'{'}</span></div>
-                <div className="code-line">&nbsp;&nbsp;<span className="cv">name</span><span className="cw">: </span><span className="cs">'Manura Anuhas'</span><span className="cw">,</span></div>
-                <div className="code-line">&nbsp;&nbsp;<span className="cv">role</span><span className="cw">: </span><span className="cs">'Software Engineer'</span><span className="cw">,</span></div>
-                <div className="code-line">&nbsp;&nbsp;<span className="cv">location</span><span className="cw">: </span><span className="cs">'Sri Lanka'</span><span className="cw">,</span></div>
-                <div className="code-line">&nbsp;&nbsp;<span className="cv">skills</span><span className="cw">: [</span><span className="cs">'Code'</span><span className="cw">, </span><span className="cs">'Design'</span><span className="cw">, </span><span className="cs">'Cloud'</span><span className="cw">],</span></div>
-                <div className="code-line">&nbsp;&nbsp;<span className="cv">available</span><span className="cw">: </span><span className="cp">true</span></div>
-                <div className="code-line"><span className="cw">{'}'}</span></div>
-                <br />
-                <div className="code-line"><span className="cm">// "Code. Design. Innovate."</span></div>
-              </div>
-              <div className="hero-float-badge hfb-1">
-                <div className="badge-icon"><Zap size={18} /></div>
-                <div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--clr-text-muted)' }}>Achievement</div>
-                  <div>Griffin of the Year 🏆</div>
-                </div>
-              </div>
-              <div className="hero-float-badge hfb-2">
-                <div className="badge-icon"><Code2 size={18} /></div>
-                <div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--clr-text-muted)' }}>Currently At</div>
-                  <div>SLTC Undergrad</div>
-                </div>
+            <div className="hps-card hps-card-bottom">
+              <div className="hps-card-icon"><Zap size={16} /></div>
+              <div>
+                <div className="hps-card-label">Achievement</div>
+                <div className="hps-card-value">Griffin of the Year 🏆</div>
               </div>
             </div>
           </div>
+
           <a href="#about" className="scroll-hint">
             <ChevronDown size={28} />
           </a>
         </section>
+
 
         {/* ══════════════════════════════════════ ABOUT */}
         <section id="about" className="section">
@@ -587,7 +593,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* ══════════════════════════════════════ PROJECTS — AUTO SCROLL CAROUSEL */}
+        {/* ══════════════════════════════════════ PROJECTS */}
         <section id="projects" className="section">
           <div className="container">
             <div className="section-center-head">
@@ -597,14 +603,31 @@ export default function App() {
                 Hover over the carousel to pause · Click links to explore
               </p>
             </div>
+
+            {/* Filter Buttons */}
+            <div className="project-filters">
+              {[
+                { key: 'all', label: '✦ All Projects' },
+                { key: 'dev', label: '⚡ Development' },
+                { key: 'design', label: '🎨 Design' },
+              ].map(({ key, label }) => (
+                <button
+                  key={key}
+                  className={`pf-btn ${projectFilter === key ? 'active' : ''}`}
+                  onClick={() => setProjectFilter(key)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Full-width carousel — no container constraint */}
+          {/* Full-width carousel */}
           <div className="carousel-viewport">
             <div className="carousel-fade-left" />
             <div className="carousel-fade-right" />
             <div className="carousel-track">
-              {carouselItems.map((p, idx) => (
+              {[...filtered, ...filtered].map((p, idx) => (
                 <div key={`${p.id}-${idx}`} className="carousel-card card">
                   <div className={`cc-thumb ${p.bg}`}>
                     <div className="cc-thumb-icon">{p.icon}</div>
@@ -626,6 +649,7 @@ export default function App() {
             </div>
           </div>
         </section>
+
 
         {/* ══════════════════════════════════════ CONTACT */}
         <section id="contact" className="section section-alt">
@@ -742,6 +766,6 @@ export default function App() {
         </div>
       </footer>
       </div>{/* /site-wrap */}
-    </>
+    </></ThemeProvider>
   );
 }
