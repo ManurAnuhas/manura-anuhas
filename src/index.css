@@ -2059,14 +2059,14 @@ label { font-size: 0.85rem; font-weight: 700; color: var(--clr-text-2); }
     flex-direction: column;
     min-height: auto;
   }
-  .hero-left, .hero-right {
+  .hero-split-left, .hero-split-right {
     width: 100% !important;
     flex: none !important;
   }
-  .hero-left {
+  .hero-split-left {
     padding: 120px 2rem 60px !important;
   }
-  .hero-right {
+  .hero-split-right {
     height: 450px !important;
   }
   .hero-badge-wrap {
@@ -2097,7 +2097,7 @@ label { font-size: 0.85rem; font-weight: 700; color: var(--clr-text-2); }
   .hero-title {
     font-size: 2.5rem !important;
   }
-  .hero-right {
+  .hero-split-right {
     height: 350px !important;
   }
   .services-grid {
