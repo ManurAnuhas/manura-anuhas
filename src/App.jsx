@@ -377,21 +377,24 @@ export default function App() {
           {/* RIGHT — full-bleed photo */}
           <div className="hero-split-right">
             <img src="/DSC03196.jpg" alt="Manura Anuhas" className="hero-split-photo" />
-            {/* Floating cards */}
-            <div className="hps-card hps-card-top">
-              <div className="hps-card-icon"><Code2 size={16} /></div>
-              <div>
-                <div className="hps-card-label">Currently At</div>
-                <div className="hps-card-value">SLTC Undergrad</div>
+          {/* Floating cards */}
+            <div className="hps-cards-row">
+              <div className="hps-card hps-card-top">
+                <div className="hps-card-icon"><Code2 size={16} /></div>
+                <div>
+                  <div className="hps-card-label">Currently At</div>
+                  <div className="hps-card-value">SLTC Undergrad</div>
+                </div>
+              </div>
+              <div className="hps-card hps-card-bottom">
+                <div className="hps-card-icon"><Zap size={16} /></div>
+                <div>
+                  <div className="hps-card-label">Achievement</div>
+                  <div className="hps-card-value">Griffin of the Year 🏆</div>
+                </div>
               </div>
             </div>
-            <div className="hps-card hps-card-bottom">
-              <div className="hps-card-icon"><Zap size={16} /></div>
-              <div>
-                <div className="hps-card-label">Achievement</div>
-                <div className="hps-card-value">Griffin of the Year 🏆</div>
-              </div>
-            </div>
+
           </div>
 
           <a href="#about" className="scroll-hint">
